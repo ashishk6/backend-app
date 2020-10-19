@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.vim.test.entity.Blog;
 import com.vim.test.repository.BlogRepository;
-import com.vom.test.vo.BlogVO;
+import com.vim.test.vo.BlogVO;
 
 @Service
 public class BlogServiceImpl {

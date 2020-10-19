@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.vim.test.entity.Blog;
 import com.vim.test.service.BlogServiceImpl;
-import com.vom.test.vo.BlogVO;
+import com.vim.test.vo.BlogVO;
 
 @RestController
 @RequestMapping("/blog")

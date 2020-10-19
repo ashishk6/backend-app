@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.vim.test.entity.User;
 import com.vim.test.repository.UserRepository;
-import com.vom.test.vo.UserVO;
+import com.vim.test.vo.UserVO;
 
 @Service
 public class UserServiceImpl {

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.vim.test.entity.User;
 import com.vim.test.service.UserServiceImpl;
-import com.vom.test.vo.UserVO;
+import com.vim.test.vo.UserVO;
 
 @RestController
 @RequestMapping("/user")
