@@ -1,0 +1,72 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: backend-app
+  name: backend-app-d4b5d5b48-lmv29
+  namespace: captaintcs
+  ownerReferences:
+  - apiVersion: apps/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: ReplicaSet
+    name: backend-app-d4b5d5b48
+spec:
+  containers:
+  - env:
+    - name: DB_USER
+      valueFrom:
+        secretKeyRef:
+          key: DB_USER
+          name: backend-app-secret
+    - name: DB_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          key: DB_PASSWORD
+          name: backend-app-secret
+    envFrom:
+    - configMapRef:
+        name: backend-app-config-map
+    image: docker.io/ashishk6/backend-app:4.0
+    imagePullPolicy: IfNotPresent
+    livenessProbe:
+      failureThreshold: 1
+      httpGet:
+        path: /actuator/health
+        port: 8080
+        scheme: HTTP
+      initialDelaySeconds: 220
+      periodSeconds: 10
+      successThreshold: 1
+      timeoutSeconds: 1
+    name: backend-app
+    ports:
+    - containerPort: 8080
+      protocol: TCP
+    readinessProbe:
+      failureThreshold: 1
+      httpGet:
+        path: /actuator/health
+        port: 8080
+        scheme: HTTP
+      initialDelaySeconds: 200
+      periodSeconds: 10
+      successThreshold: 1
+      timeoutSeconds: 1
+    resources:
+      limits:
+        cpu: 200m
+        memory: 400Mi
+      requests:
+        cpu: 100m
+        memory: 200Mi
+    securityContext:
+      capabilities:
+        drop:
+        - KILL
+        - MKNOD
+        - SETGID
+        - SETUID
+      runAsUser: 1001330000
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File

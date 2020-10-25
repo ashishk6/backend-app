@@ -1,0 +1,8 @@
+apiVersion: v1
+cdata:
+  DB_CONNECTION: cluster0.ny41t.mongodb.net/test?retryWrites=true
+  DB_NAME: test
+kind: ConfigMap
+metadata:
+  name: backend-app-config-map
+  namespace: captaintcs
