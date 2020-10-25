@@ -24,19 +24,19 @@ public class BlogController {
 	private BlogServiceImpl blogServiceImpl;
 
 	@GetMapping("/getBlogDetails")
-	List<Blog> fetchAllBlogs() {
+	List<BlogVO> fetchAllBlogs() {
 		LOG.debug("Fetch all Blogs");
 		return blogServiceImpl.fetchAllBlogs();
 	}
 	
 	@PostMapping("/editBlog")
-	Blog editBlog(@RequestBody BlogVO blogVO) {
+	BlogVO editBlog(@RequestBody BlogVO blogVO) {
 		LOG.debug("Edit Blog");
 		return blogServiceImpl.editBlog(blogVO);
 	}
 	
 	@PostMapping("/saveBlog")
-	Blog saveBlog(@RequestBody BlogVO blogVO) {
+	BlogVO saveBlog(@RequestBody BlogVO blogVO) {
 		LOG.debug("Save Blog");
 		return blogServiceImpl.saveBlog(blogVO);
 	}
