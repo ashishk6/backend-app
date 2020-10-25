@@ -1,6 +1,7 @@
 package com.vim.test.service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,33 +19,58 @@ public class BlogServiceImpl {
 	@Autowired
 	private BlogRepository blogRepository;
 
-	public List<Blog> fetchAllBlogs() {
-		return blogRepository.findAll();
+	public List<BlogVO> fetchAllBlogs() {
+		List<BlogVO> blogVos = new ArrayList<>();
+		List<Blog> blogs=  blogRepository.findAll();
+		for(Blog blog: blogs){
+			BlogVO blogVO = setBlogVO(blog);
+			blogVos.add(blogVO);
+		}
+		return blogVos;
 	}
 
-	public Blog editBlog(BlogVO blogVO) {
+	private BlogVO setBlogVO(Blog blog) {
+		BlogVO blogVO = new BlogVO();
+		blogVO.setAuthor(blog.getAuthor());
+		blogVO.setId(blog.getBlogId());
+		blogVO.setHeader(blog.getHeading());
+		blogVO.setBody(blog.getContent());
+		blogVO.setTimestamp(blog.getLastUpdate());
+		return blogVO;
+	}
+
+	public BlogVO editBlog(BlogVO blogVO) {
 		Blog updateBlog =null;
-		Optional<Blog> blog = blogRepository.findById(blogVO.getBlogId());
+		Optional<Blog> blog = blogRepository.findById(blogVO.getId());
 		if(blog.isPresent()){
 			updateBlog = blog.get();
-			updateBlog.setContent(blogVO.getContent());
-			updateBlog.setHeading(blogVO.getHeading());
+			updateBlog.setContent(blogVO.getBody());
+			updateBlog.setHeading(blogVO.getHeader());
 			updateBlog.setLastUpdate(LocalDate.now().toString());
-			blogRepository.save(updateBlog);
+			updateBlog = blogRepository.save(updateBlog);
 		}
-		return updateBlog;
+		return setBlogVO(updateBlog);
 	}
 
-	public Blog saveBlog(BlogVO blogVO) {
-		ModelMapper modelMapper = new ModelMapper();
-		Blog blog = modelMapper.map(blogVO, Blog.class);
+	public BlogVO saveBlog(BlogVO blogVO) {
+		//ModelMapper modelMapper = new ModelMapper();
+		Blog blog = setBlog(blogVO);
 		blog = blogRepository.save(blog);
+		return setBlogVO(blog);
+	}
+
+	private Blog setBlog(BlogVO blogVO) {
+		Blog blog = new Blog();
+		blog.setAuthor(blogVO.getAuthor());
+		blog.setContent(blogVO.getBody());
+		blog.setHeading(blogVO.getHeader());
+		blog.setLastUpdate(blogVO.getTimestamp());
 		return blog;
 	}
 
 	public boolean deleteBlog(BlogVO blog) {
 		try {
-			blogRepository.deleteById(blog.getBlogId());
+			blogRepository.deleteById(blog.getId());
 			return true;
 		} catch (Exception e) {
 			return false;
