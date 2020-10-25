@@ -9,30 +9,34 @@ public class BlogVO implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String blogId;
-	private String content;
-	private String heading;
-	private String lastUpdate;
+	private String id;
+	private String body;
+	private String header;
+	private String timestamp;
 	private String author;
-	
-	
-	public String getContent() {
-		return content;
+	public String getId() {
+		return id;
 	}
-	public void setContent(String content) {
-		this.content = content;
+	public void setId(String id) {
+		this.id = id;
 	}
-	public String getHeading() {
-		return heading;
+	public String getBody() {
+		return body;
 	}
-	public void setHeading(String heading) {
-		this.heading = heading;
+	public void setBody(String body) {
+		this.body = body;
 	}
-	public String getLastUpdate() {
-		return lastUpdate;
+	public String getHeader() {
+		return header;
 	}
-	public void setLastUpdate(String lastUpdate) {
-		this.lastUpdate = lastUpdate;
+	public void setHeader(String header) {
+		this.header = header;
+	}
+	public String getTimestamp() {
+		return timestamp;
+	}
+	public void setTimestamp(String timestamp) {
+		this.timestamp = timestamp;
 	}
 	public String getAuthor() {
 		return author;
@@ -40,13 +44,4 @@ public class BlogVO implements Serializable{
 	public void setAuthor(String author) {
 		this.author = author;
 	}
-	public String getBlogId() {
-		return blogId;
-	}
-	public void setBlogId(String blogId) {
-		this.blogId = blogId;
-	}
-	
-	
-
 }
